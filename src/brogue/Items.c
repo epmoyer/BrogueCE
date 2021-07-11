@@ -246,6 +246,8 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
             theEntry = &scrollTable[itemKind];
             theItem->displayChar = G_SCROLL;
             theItem->flags |= ITEM_FLAMMABLE;
+            // EPM
+            theItem->flags |= ITEM_IDENTIFIED;
             break;
         case POTION:
             if (itemKind < 0) {
@@ -253,6 +255,8 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
             }
             theEntry = &potionTable[itemKind];
             theItem->displayChar = G_POTION;
+            // EPM
+            theItem->flags |= ITEM_IDENTIFIED;
             break;
         case STAFF:
             if (itemKind < 0) {
@@ -344,7 +348,8 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
     }
     if (theItem
         && !(theItem->flags & ITEM_IDENTIFIED)
-        && (!(theItem->category & (POTION | SCROLL) ) || (theEntry && !theEntry->identified))) {
+        // && (!(theItem->category & (POTION | SCROLL) ) || (theEntry && !theEntry->identified))) {
+        && (!(theItem->category & (SCROLL) ) || (theEntry && !theEntry->identified))) {
 
         theItem->flags |= ITEM_CAN_BE_IDENTIFIED;
     }
@@ -1513,6 +1518,8 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
             }
             break;
         case POTION:
+            // EPM
+            // sprintf(root, "potion%s of %s", pluralization, potionTable[theItem->kind].name);
             if (potionTable[theItem->kind].identified || rogue.playbackOmniscience) {
                 sprintf(root, "potion%s of %s", pluralization, potionTable[theItem->kind].name);
             } else if (potionTable[theItem->kind].called) {
@@ -7709,7 +7716,9 @@ void deleteItem(item *theItem) {
 }
 
 void resetItemTableEntry(itemTable *theEntry) {
-    theEntry->identified = false;
+    // EPM: Brute force all items as identified
+    theEntry->identified = true;
+    // theEntry->identified = false;
     theEntry->called = false;
     theEntry->callTitle[0] = '\0';
 }
