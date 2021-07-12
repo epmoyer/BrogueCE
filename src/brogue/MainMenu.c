@@ -34,7 +34,7 @@
 #define MENU_FLAME_UPDATE_DELAY         50
 #define MENU_FLAME_ROW_PADDING          2
 #define MENU_TITLE_OFFSET_X             (-4)
-#define MENU_TITLE_OFFSET_Y             (-1)
+#define MENU_TITLE_OFFSET_Y             (3)
 
 #define MENU_FLAME_COLOR_SOURCE_COUNT   1136
 
@@ -172,7 +172,7 @@ void antiAlias(unsigned char mask[COLS][ROWS]) {
 }
 
 #define MENU_TITLE_WIDTH    74
-#define MENU_TITLE_HEIGHT   25
+#define MENU_TITLE_HEIGHT   26
 
 void initializeMenuFlames(boolean includeTitle,
                           const color *colors[COLS][(ROWS + MENU_FLAME_ROW_PADDING)],
@@ -182,6 +182,13 @@ void initializeMenuFlames(boolean includeTitle,
                           unsigned char mask[COLS][ROWS]) {
     short i, j, k, colorSourceCount;
     const char title[MENU_TITLE_HEIGHT][MENU_TITLE_WIDTH+1] = {
+        " ####  #####  #     #  #####  #####  ####   #                             ",
+        "#      #    #  #   #  #         #   #    #  #                             ",
+        "#      #####    ###    ####     #   ######  #                             ",
+        "#      #   #     #         #    #   #    #  #                             ",
+        " ####  #    #    #    #####     #   #    #  #####                         ",
+        "                                                                          ",
+        "                                                                          ",
         "########   ########       ######         #######   ####     ###  #########",
         " ##   ###   ##   ###    ##     ###     ##      ##   ##       #    ##     #",
         " ##    ##   ##    ##   ##       ###   ##        #   ##       #    ##     #",
@@ -200,13 +207,7 @@ void initializeMenuFlames(boolean includeTitle,
         "                        ##########                                        ",
         "                            ##                                            ",
         "                            ##                                            ",
-        "                           ####                                           ",
-        "                                                                          ",
-        "                           ######   #####  ######  ## ######              ",
-        "                           ##   ## ##   ## ##   ## ## ##   ##             ",
-        "                           ######  ####### ######  ## ##   ##             ",
-        "                           ##   ## ##   ## ##      ## ##   ##             ",
-        "                           ##   ## ##   ## ##      ## ######              "
+        "                           ####                                           "
     };
 
     for (i=0; i<COLS; i++) {
@@ -332,7 +333,7 @@ void titleMenu() {
     b++;
 
     x = COLS - 1 - 20 - 2;
-    y = ROWS - 1;
+    y = ROWS - 22;
     for (i = b-1; i >= 0; i--) {
         y -= 2;
         buttons[i].x = x;
