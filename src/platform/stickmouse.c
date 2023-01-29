@@ -1,5 +1,5 @@
 /**
- * Author: Jason White
+ * Author: Eric Moyer
  *
  * Description:
  * Emulate a virtual mouse position using the RG351V analog stick.
@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <SDL_image.h>
 #include "stickmouse.h"
 #include <linux/joystick.h>
 
