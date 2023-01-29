@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "platform.h"
 #include <SDL_image.h>
 #include "stickmouse.h"
 #include <linux/joystick.h>
@@ -138,6 +139,7 @@ int STK_init(int window_width, int window_height){
 
     if (stickmouse_js == -1)
         perror("Could not open joystick");
+    return 0;
 }
 
 void stickmouse_close(){
@@ -224,40 +226,39 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     return false;
 }
 
-int main(int argc, char *argv[])
-{
-    float old_x;
-    float old_y;
-    STK_Event event;
+// int main(int argc, char *argv[])
+// {
+//     float old_x;
+//     float old_y;
+//     STK_Event event;
 
-    STK_init(640, 480);
+//     STK_init(640, 480);
 
-    while (1) {
-        usleep(1000000 / STK_FPS);
+//     while (1) {
+//         usleep(1000000 / STK_FPS);
         
-        // old_x = STK_mouse_x;
-        // old_y = STK_mouse_y;
-        // stickmouse_update();
-        // if((old_x != STK_mouse_x) || (old_y != STK_mouse_y)){
-        //     printf("stickmouse: (%5.1f, %5.1f)\n", STK_mouse_x, STK_mouse_y);
-        // }
-        if(STK_PollEvent(&event)){
-            switch(event.type){
-                case STK_MOUSEMOTION:
-                    printf("STK_MOUSEMOTION: (%d, %d)\n", event.motion.x, event.motion.y);
-                    break;
-                case STK_MOUSEBUTTONDOWN:
-                    printf("STK_MOUSEBUTTONDOWN\n");
-                    break;
-                case STK_MOUSEBUTTONUP:
-                    printf("STK_MOUSEBUTTONUP\n");
-                    break;
-            }
-        }
-    }
+//         // old_x = STK_mouse_x;
+//         // old_y = STK_mouse_y;
+//         // stickmouse_update();
+//         // if((old_x != STK_mouse_x) || (old_y != STK_mouse_y)){
+//         //     printf("stickmouse: (%5.1f, %5.1f)\n", STK_mouse_x, STK_mouse_y);
+//         // }
+//         if(STK_PollEvent(&event)){
+//             switch(event.type){
+//                 case STK_MOUSEMOTION:
+//                     printf("STK_MOUSEMOTION: (%d, %d)\n", event.motion.x, event.motion.y);
+//                     break;
+//                 case STK_MOUSEBUTTONDOWN:
+//                     printf("STK_MOUSEBUTTONDOWN\n");
+//                     break;
+//                 case STK_MOUSEBUTTONUP:
+//                     printf("STK_MOUSEBUTTONUP\n");
+//                     break;
+//             }
+//         }
+//     }
     
-    stickmouse_close();
+//     stickmouse_close();
 
-    return 0;
-}
-
+//     return 0;
+// }
