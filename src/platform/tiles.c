@@ -723,6 +723,10 @@ void updateScreen() {
         }
     }
 
+    // Draw stickmouse position
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDrawPoint(renderer, STK_mouse_x_int_last_reported, STK_mouse_y_int_last_reported);
+
     SDL_RenderPresent(renderer);
 
     // the screen is now up to date
