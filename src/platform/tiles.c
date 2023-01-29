@@ -4,6 +4,9 @@
 #include "platform.h"
 #include "tiles.h"
 
+extern Sint32 STK_mouse_x_int_last_reported;
+extern Sint32 STK_mouse_y_int_last_reported;
+
 #define PI  3.14159265358979323846
 
 #define PNG_WIDTH    2048   // width (px) of the source PNG
