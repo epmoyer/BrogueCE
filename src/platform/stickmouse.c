@@ -160,6 +160,8 @@ boolean STK_PollEvent(STK_Event *stk_event) {
                     if(event.number == STK_BUTTON_INDEX_MOUSEBUTTON_LEFT){
                         stk_event->type = event.value ? STK_MOUSEBUTTONDOWN : STK_MOUSEBUTTONUP;
                         stk_event->button.button = STK_MOUSEBUTTON_LEFT;
+                        stk_event->button.x = STK_mouse_x_int_last_reported;
+                        stk_event->button.y = STK_mouse_y_int_last_reported;
                         return true;
                     }
                     break;

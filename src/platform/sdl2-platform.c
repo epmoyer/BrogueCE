@@ -154,6 +154,42 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
     SDL_Event event;
     boolean ret = false;
 
+    STK_Event stk_event;
+    if(STK_Pollstk_(&stk_event)){
+        switch(stk_event.type){
+            case STK_MOUSEMOTION:
+                // printf("STK_MOUSEMOTION: (%d, %d)\n", stk_event.motion.x, stk_event.motion.y);
+                // We don't want to return on a mouse motion event, because only the last
+                // in the queue is important. That's why we just set ret=true
+                int xcell = stk_event.motion.x * COLS / windowWidth,
+                    ycell = stk_event.motion.y * ROWS / windowHeight;
+                if (xcell != mx || ycell != my) {
+                    returnEvent->eventType = MOUSE_ENTERED_CELL;
+                    returnEvent->param1 = xcell;
+                    returnEvent->param2 = ycell;
+                    mx = xcell;
+                    my = ycell;
+                    ret = true;
+                }
+                break;
+            case STK_MOUSEBUTTONDOWN:
+                // printf("STK_MOUSEBUTTONDOWN\n");
+                returnEvent->eventType = MOUSE_DOWN;
+                returnEvent->param1 = stk_event.button.x * COLS / windowWidth;
+                returnEvent->param2 = stk_event.button.y * ROWS / windowHeight;
+                return true;
+                break;
+            case STK_MOUSEBUTTONUP:
+                // printf("STK_MOUSEBUTTONUP\n");
+                returnEvent->eventType = MOUSE_UP;
+                returnEvent->param1 = stk_event.button.x * COLS / windowWidth;
+                returnEvent->param2 = stk_event.button.y * ROWS / windowHeight;
+                return true;
+                break;
+        }
+    }
+
+
 
     // ~ for (int i=0; i < 100 && SDL_PollEvent(&event); i++) {
     while (SDL_PollEvent(&event)) {
