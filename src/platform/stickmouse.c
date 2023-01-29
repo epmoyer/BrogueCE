@@ -115,7 +115,7 @@ size_t get_axis_state(struct js_event *event, struct axis_state axes[3])
     return axis;
 }
 
-int stickmouse_init(int window_width, int window_height){
+int STK_init(int window_width, int window_height){
     STK_window_width = window_width;
     STK_window_height = window_height;
     STK_mouse_x = 0.0;
@@ -227,7 +227,7 @@ int main(int argc, char *argv[])
     float old_y;
     STK_Event event;
 
-    stickmouse_init(640, 480);
+    STK_init(640, 480);
 
     while (1) {
         usleep(1000000 / STK_FPS);

@@ -1,6 +1,7 @@
 #include <math.h>
 #include <limits.h>
 #include "platform.h"
+#include "stickmouse.h"
 
 #ifndef DATADIR
 #error "The DATADIR macro is undefined."
@@ -224,6 +225,8 @@ int main(int argc, char *argv[])
             softwareRendering = true;
             continue;
         }
+
+        STK_init(windowWidth, windowHeight);
 #endif
 
 #ifdef BROGUE_CURSES
