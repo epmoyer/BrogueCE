@@ -46,7 +46,7 @@ struct axis_state STK_axes[3] = {0};
 #define STK_BUTTON_INDEX_MOUSEBUTTON_LEFT 0
 #define STK_FPS 60
 #define STK_JS_RANGE_MAX 32767
-#define STK_SCREEN_TRANSIT_SECONDS_MIN 1.5
+#define STK_SCREEN_TRANSIT_SECONDS_MIN 2.0
 
 
 /**
@@ -195,15 +195,15 @@ boolean STK_PollEvent(STK_Event *stk_event) {
 
     // Now we know the current position of the stick, so move the virtual mouse.
     STK_mouse_x -= (float)STK_axes[STK_JS_AXIS].x * STK_velocity_scale;
-    if(STK_mouse_x > (float)STK_window_width){
-        STK_mouse_x = (float)STK_window_width;
+    if(STK_mouse_x >= (float)STK_window_width){
+        STK_mouse_x = (float)STK_window_width - 1;
     } else if (STK_mouse_x < 0){
         STK_mouse_x = 0;
     }
 
     STK_mouse_y -= (float)STK_axes[STK_JS_AXIS].y * STK_velocity_scale;
-    if(STK_mouse_y > (float)STK_window_height){
-        STK_mouse_y = (float)STK_window_height;
+    if(STK_mouse_y >= (float)STK_window_height){
+        STK_mouse_y = (float)STK_window_height - 1;
     } else if (STK_mouse_y < 0){
         STK_mouse_y = 0;
     }
