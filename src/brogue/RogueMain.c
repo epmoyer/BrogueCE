@@ -29,7 +29,8 @@
 void rogueMain() {
     previousGameSeed = 0;
     printf("DBG:Launched\n");
-    perror("DBG:STDERR:Launched\n");
+    perror("DBG:STDERR:perror:Launched\n");
+    fprintf(sderr, "DBG:STDERR:perror:Launched\n");
     mainBrogueJunction();
 }
 
