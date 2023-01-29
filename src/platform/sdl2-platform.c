@@ -161,6 +161,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
                 // printf("STK_MOUSEMOTION: (%d, %d)\n", stk_event.motion.x, stk_event.motion.y);
                 // We don't want to return on a mouse motion event, because only the last
                 // in the queue is important. That's why we just set ret=true
+		{
                 int xcell = stk_event.motion.x * COLS / windowWidth,
                     ycell = stk_event.motion.y * ROWS / windowHeight;
                 if (xcell != mx || ycell != my) {
@@ -171,6 +172,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
                     my = ycell;
                     ret = true;
                 }
+		}
                 break;
             case STK_MOUSEBUTTONDOWN:
                 // printf("STK_MOUSEBUTTONDOWN\n");
