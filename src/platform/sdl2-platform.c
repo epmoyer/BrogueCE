@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include "platform.h"
 #include "tiles.h"
+#include "stickmouse.h"
 
 #define PAUSE_BETWEEN_EVENT_POLLING     36L//17
 #define MAX_REMAPS  128
