@@ -228,8 +228,6 @@ int main(int argc, char *argv[])
             softwareRendering = true;
             continue;
         }
-
-        STK_init(windowWidth, windowHeight);
 #endif
 
 #ifdef BROGUE_CURSES
@@ -281,6 +279,10 @@ int main(int argc, char *argv[])
         badArgument(argv[i]);
         return 1;
     }
+
+    #ifdef BROGUE_SDL
+        STK_init(windowWidth, windowHeight);
+    #endif
 
     hasGraphics = (currentConsole.setGraphicsMode != NULL);
     // Now actually set graphics. We do this to ensure there is exactly one

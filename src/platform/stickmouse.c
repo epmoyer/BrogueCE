@@ -126,7 +126,7 @@ int STK_init(int window_width, int window_height){
     // stickmouse_js_x = 0;
     // stickmouse_js_y = 0;
 
-    fprintf(stderr, "STK_init()\n");
+    fprintf(stderr, "STK_init(%d, %d)\n", window_width, window_height);
 
     // Set velocity scale such that, when multiplied by stick value, the mouse can cross the
     // width of the screen in STK_SCREEN_TRANSIT_SECONDS_MIN seconds if held at its maximum
