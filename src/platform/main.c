@@ -281,6 +281,9 @@ int main(int argc, char *argv[])
     }
 
     #ifdef BROGUE_SDL
+        
+        // TODO: Forcing this to RG351V resolution for now. Should call at some point
+        //       when windowWidth, windowHeight are correct (aren't at this point).
         // STK_init(windowWidth, windowHeight);
         STK_init(640, 480);
     #endif
