@@ -1,6 +1,9 @@
 #include <math.h>
 #include <limits.h>
 #include "platform.h"
+#ifdef BROGUE_SDL 
+#include <SDL_image.h>
+#endif
 #include "stickmouse.h"
 
 #ifndef DATADIR

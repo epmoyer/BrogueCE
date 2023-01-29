@@ -1,12 +1,13 @@
 
 // platform definitions
-// typedef int                     int32_t;
-// typedef unsigned int uint32_t;
-// typedef unsigned char uint8_t;
+//typedef int                     int32_t;
+//typedef unsigned int uint32_t;
+//typedef unsigned char uint8_t;
 
-// typedef uint32_t Uint32;
-// typedef int32_t Sint32;
-// typedef uint8_t Uint8;
+//typedef uint32_t Uint32;
+//typedef int32_t Sint32;
+//typedef uint8_t Uint8;
+
 
 #define STK_MOUSEBUTTON_LEFT     1
 
@@ -46,9 +47,15 @@ typedef struct STK_MouseButtonEvent
     // Uint8 padding1;
 } STK_MouseButtonEvent;
 
-typedef union SDL_Event
+typedef union STK_Event
 {
     Uint32 type;                            /**< Event type, shared with all events */
     STK_MouseMotionEvent motion;            /**< Mouse motion event data */
     STK_MouseButtonEvent button;            /**< Mouse button event data */
 } STK_Event;
+
+
+// PROTOTYPES
+int STK_init(int window_width, int window_height);
+boolean STK_PollEvent(STK_Event *stk_event);
+

@@ -155,7 +155,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
     boolean ret = false;
 
     STK_Event stk_event;
-    if(STK_Pollstk_(&stk_event)){
+    if(STK_PollEvent(&stk_event)){
         switch(stk_event.type){
             case STK_MOUSEMOTION:
                 // printf("STK_MOUSEMOTION: (%d, %d)\n", stk_event.motion.x, stk_event.motion.y);
