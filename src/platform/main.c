@@ -281,7 +281,8 @@ int main(int argc, char *argv[])
     }
 
     #ifdef BROGUE_SDL
-        STK_init(windowWidth, windowHeight);
+        // STK_init(windowWidth, windowHeight);
+        STK_init(640, 480);
     #endif
 
     hasGraphics = (currentConsole.setGraphicsMode != NULL);
