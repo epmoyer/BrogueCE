@@ -728,7 +728,22 @@ void updateScreen() {
 
     // Draw stickmouse position
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawPoint(renderer, STK_mouse_x_int_last_reported, STK_mouse_y_int_last_reported);
+    #define CROSSHAIR_SIZE 2
+    // SDL_RenderDrawPoint(renderer, STK_mouse_x_int_last_reported, STK_mouse_y_int_last_reported);
+    SDL_RenderDrawLine(
+        renderer,
+        STK_mouse_x_int_last_reported - CROSSHAIR_SIZE,
+        STK_mouse_y_int_last_reported,
+        STK_mouse_x_int_last_reported + CROSSHAIR_SIZE,
+        STK_mouse_y_int_last_reported
+        );
+    SDL_RenderDrawLine(
+        renderer,
+        STK_mouse_x_int_last_reported,
+        STK_mouse_y_int_last_reported - CROSSHAIR_SIZE,
+        STK_mouse_x_int_last_reported,
+        STK_mouse_y_int_last_reported + CROSSHAIR_SIZE
+        );
 
     SDL_RenderPresent(renderer);
 
