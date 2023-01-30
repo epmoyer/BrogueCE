@@ -286,6 +286,7 @@ int main(int argc, char *argv[])
         //       when windowWidth, windowHeight are correct (aren't at this point).
         // STK_init(windowWidth, windowHeight);
         STK_init(640, 480);
+        windowWidth = 600;
     #endif
 
     hasGraphics = (currentConsole.setGraphicsMode != NULL);
