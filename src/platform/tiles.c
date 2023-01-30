@@ -829,6 +829,11 @@ SDL_Surface *captureScreen() {
     // take a screenshot
     SDL_Surface *screenshot = SDL_CreateRGBSurfaceWithFormat(0, outputWidth, outputHeight, 32, SDL_PIXELFORMAT_ARGB8888);
     if (!screenshot) sdlfatal(__FILE__, __LINE__);
+
+    // EPM: Fill with black first
+    Uint32 color = SDL_MapRGB(screenshot->format, 0, 0 ,0);
+    SDL_FillRect(screenshot, 0, color);
+    
     if (SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, screenshot->pixels, outputWidth * 4) < 0) sdlfatal(__FILE__, __LINE__);
     return screenshot;
 }
