@@ -205,7 +205,7 @@ boolean STK_PollEvent(STK_Event *stk_event) {
 
     float x_velocity = (float)STK_axes[STK_JS_AXIS].x / (float)STK_JS_RANGE_MAX;
     if (fabsf(x_velocity) < 0.8) {
-        x_velocity /= 4;
+        x_velocity /= 4.0;
     }
     fprintf(stderr, "x_velocity: (%7.4f)\n", x_velocity);
     x_velocity = powf(x_velocity, 3); // Give stick response a curve
@@ -225,7 +225,7 @@ boolean STK_PollEvent(STK_Event *stk_event) {
 
     float y_velocity = (float)STK_axes[STK_JS_AXIS].y / (float)STK_JS_RANGE_MAX;
     if (fabsf(y_velocity) < 0.8) {
-        y_velocity /= 4;
+        y_velocity /= 4.0;
     }
     y_velocity = powf(y_velocity, 3); // Give stick response a curve
     // if (y_velocity < 0){
