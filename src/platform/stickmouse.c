@@ -204,8 +204,10 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     STK_ticks_previous = ticks_current;
 
     float x_velocity = (float)STK_axes[STK_JS_AXIS].x / (float)STK_JS_RANGE_MAX;
+    fprintf(stderr, "x_velocity: (%7.4f)\n", x_velocity);
     // x_velocity = powf(x_velocity, 2); // Give stick response a square curve
-    // x_velocity = x_velocity * x_velocity;
+    x_velocity = x_velocity * x_velocity;
+    fprintf(stderr, "x_velocity sq: (%7.4f)\n", x_velocity);
     STK_mouse_x -= x_velocity * STK_velocity_scale * tick_scale;
     if(STK_mouse_x >= (float)STK_window_width){
         STK_mouse_x = (float)STK_window_width - 1;
