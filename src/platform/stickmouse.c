@@ -21,7 +21,7 @@
 #define false                   0
 #define true                    1
 
-int stickmouse_js;
+int STK_joystick;
 int STK_window_width;
 int STK_window_height;
 float STK_mouse_x;
@@ -32,6 +32,7 @@ Sint32 STK_mouse_x_int;
 Sint32 STK_mouse_y_int;
 Sint32 STK_mouse_x_int_last_reported;
 Sint32 STK_mouse_y_int_last_reported;
+long STK_ticks_previous;
 
 /**
  * Current state of an axis.
@@ -123,8 +124,9 @@ int STK_init(int window_width, int window_height){
     STK_mouse_x = 0.0;
     STK_mouse_y = 0.0;
     STK_mouse_position_was_reported = false;
-    // stickmouse_js_x = 0;
-    // stickmouse_js_y = 0;
+    STK_ticks_previous = SDL_GetTicks();
+    // STK_joystick_x = 0;
+    // STK_joystick_y = 0;
 
     fprintf(stderr, "STK_init(%d, %d)\n", window_width, window_height);
 
@@ -137,15 +139,15 @@ int STK_init(int window_width, int window_height){
         / (float)STK_FPS
         / STK_SCREEN_TRANSIT_SECONDS_MIN;
 
-    stickmouse_js = open("/dev/input/js0", O_RDONLY | O_NONBLOCK);
+    STK_joystick = open("/dev/input/js0", O_RDONLY | O_NONBLOCK);
 
-    if (stickmouse_js == -1)
+    if (STK_joystick == -1)
         perror("Could not open joystick");
     return 0;
 }
 
 void stickmouse_close(){
-    close(stickmouse_js);
+    close(STK_joystick);
 }
 
 boolean STK_PollEvent(STK_Event *stk_event) {
@@ -153,10 +155,12 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     struct js_event event;
     size_t axis;
     boolean done;
+    long ticks_current;
+    long ticks_elapsed;
 
     done = false;
     while(!done){
-        status = read_event(stickmouse_js, &event);
+        status = read_event(STK_joystick, &event);
         if (status == 0) {
             switch (event.type)
             {
@@ -173,8 +177,8 @@ boolean STK_PollEvent(STK_Event *stk_event) {
                 case JS_EVENT_AXIS:
                     axis = get_axis_state(&event, STK_axes);
                     // if (axis == 0) {
-                    //     stickmouse_js_x = STK_axes[0].x;
-                    //     stickmouse_js_y = STK_axes[0].y;
+                    //     STK_joystick_x = STK_axes[0].x;
+                    //     STK_joystick_y = STK_axes[0].y;
                     //     printf("Axis %zu at (%6d, %6d)\n", axis, STK_axes[axis].x, STK_axes[axis].y);
                     // }
                     break;
@@ -194,14 +198,19 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     }
 
     // Now we know the current position of the stick, so move the virtual mouse.
-    STK_mouse_x -= (float)STK_axes[STK_JS_AXIS].x * STK_velocity_scale;
+    ticks_current = SDL_GetTicks();
+    ticks_elapsed = ticks_current - STK_ticks_previous;
+    tick_scale = (float)ticks_elapsed / ((float)1000 / (float)STK_FPS);
+    STK_ticks_previous = ticks_current;
+
+    STK_mouse_x -= (float)STK_axes[STK_JS_AXIS].x * STK_velocity_scale * tick_scale;
     if(STK_mouse_x >= (float)STK_window_width){
         STK_mouse_x = (float)STK_window_width - 1;
     } else if (STK_mouse_x < 0){
         STK_mouse_x = 0;
     }
 
-    STK_mouse_y -= (float)STK_axes[STK_JS_AXIS].y * STK_velocity_scale;
+    STK_mouse_y -= (float)STK_axes[STK_JS_AXIS].y * STK_velocity_scale * tick_scale;
     if(STK_mouse_y >= (float)STK_window_height){
         STK_mouse_y = (float)STK_window_height - 1;
     } else if (STK_mouse_y < 0){
