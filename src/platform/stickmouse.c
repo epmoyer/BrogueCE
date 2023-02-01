@@ -157,6 +157,7 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     boolean done;
     long ticks_current;
     long ticks_elapsed;
+    float tick_scale;
 
     done = false;
     while(!done){
