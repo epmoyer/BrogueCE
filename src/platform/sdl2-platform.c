@@ -159,7 +159,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
         switch(stk_event.type){
             case STK_MOUSEMOTION:
                 // printf("STK_MOUSEMOTION: (%d, %d)\n", stk_event.motion.x, stk_event.motion.y);
-                fprintf(stderr, "STK_MOUSEMOTION: (%d, %d)\n", stk_event.motion.x, stk_event.motion.y);
+                // fprintf(stderr, "STK_MOUSEMOTION: (%d, %d)\n", stk_event.motion.x, stk_event.motion.y);
                 // We don't want to return on a mouse motion event, because only the last
                 // in the queue is important. That's why we just set ret=true
                 {
@@ -177,7 +177,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
                 break;
             case STK_MOUSEBUTTONDOWN:
                 // printf("STK_MOUSEBUTTONDOWN\n");
-                fprintf(stderr, "STK_MOUSEBUTTONDOWN\n");
+                // fprintf(stderr, "STK_MOUSEBUTTONDOWN\n");
                 returnEvent->eventType = MOUSE_DOWN;
                 returnEvent->param1 = stk_event.button.x * COLS / windowWidth;
                 returnEvent->param2 = stk_event.button.y * ROWS / windowHeight;
@@ -185,7 +185,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
                 break;
             case STK_MOUSEBUTTONUP:
                 // printf("STK_MOUSEBUTTONUP\n");
-                fprintf(stderr, "STK_MOUSEBUTTONUP\n");
+                // fprintf(stderr, "STK_MOUSEBUTTONUP\n");
                 returnEvent->eventType = MOUSE_UP;
                 returnEvent->param1 = stk_event.button.x * COLS / windowWidth;
                 returnEvent->param2 = stk_event.button.y * ROWS / windowHeight;
