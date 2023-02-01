@@ -135,7 +135,6 @@ int STK_init(int window_width, int window_height){
     // deflection
     STK_velocity_scale = 
         (float)STK_window_width 
-        / (float)STK_JS_RANGE_MAX 
         / (float)STK_FPS
         / STK_SCREEN_TRANSIT_SECONDS_MIN;
 
@@ -204,14 +203,18 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     tick_scale = (float)ticks_elapsed / ((float)1000 / (float)STK_FPS);
     STK_ticks_previous = ticks_current;
 
-    STK_mouse_x -= (float)STK_axes[STK_JS_AXIS].x * STK_velocity_scale * tick_scale;
+    float x_velocity = (float)STK_axes[STK_JS_AXIS].x / (float)STK_JS_RANGE_MAX);
+    x_velocity = powf(x_velocity, 2); // Give stick response a square curve
+    STK_mouse_x -= x_velocity * STK_velocity_scale * tick_scale;
     if(STK_mouse_x >= (float)STK_window_width){
         STK_mouse_x = (float)STK_window_width - 1;
     } else if (STK_mouse_x < 0){
         STK_mouse_x = 0;
     }
 
-    STK_mouse_y -= (float)STK_axes[STK_JS_AXIS].y * STK_velocity_scale * tick_scale;
+    float y_velocity = (float)STK_axes[STK_JS_AXIS].y / (float)STK_JS_RANGE_MAX);
+    y_velocity = powf(y_velocity, 2); // Give stick response a square curve
+    STK_mouse_y -= y_velocity * STK_velocity_scale * tick_scale;
     if(STK_mouse_y >= (float)STK_window_height){
         STK_mouse_y = (float)STK_window_height - 1;
     } else if (STK_mouse_y < 0){
