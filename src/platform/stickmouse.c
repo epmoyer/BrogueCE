@@ -207,15 +207,15 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     if (fabsf(x_velocity) < 0.8) {
         x_velocity /= 4.0;
     }
-    fprintf(stderr, "x_velocity: (%7.4f)\n", x_velocity);
-    x_velocity = powf(x_velocity, 3); // Give stick response a curve
+    // fprintf(stderr, "x_velocity: (%7.4f)\n", x_velocity);
+    // x_velocity = powf(x_velocity, 3); // Give stick response a curve
     // if (x_velocity < 0){
     //     x_velocity = -(x_velocity * x_velocity);
     // }
     // else{
     //     x_velocity = x_velocity * x_velocity;
     // }
-    fprintf(stderr, "x_velocity sq: (%7.4f)\n", x_velocity);
+    // fprintf(stderr, "x_velocity sq: (%7.4f)\n", x_velocity);
     STK_mouse_x -= x_velocity * STK_velocity_scale * tick_scale;
     if(STK_mouse_x >= (float)STK_window_width){
         STK_mouse_x = (float)STK_window_width - 1;
@@ -227,7 +227,7 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     if (fabsf(y_velocity) < 0.8) {
         y_velocity /= 4.0;
     }
-    y_velocity = powf(y_velocity, 3); // Give stick response a curve
+    // y_velocity = powf(y_velocity, 3); // Give stick response a curve
     // if (y_velocity < 0){
     //     y_velocity = -(y_velocity * y_velocity);
     // } else {
