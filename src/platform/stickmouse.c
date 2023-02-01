@@ -133,10 +133,10 @@ int STK_init(int window_width, int window_height){
     // Set velocity scale such that, when multiplied by stick value, the mouse can cross the
     // width of the screen in STK_SCREEN_TRANSIT_SECONDS_MIN seconds if held at its maximum
     // deflection
-    STK_velocity_scale = 
-        (float)STK_window_width 
+    STK_velocity_scale =
+        (float)STK_window_width
         / (float)STK_FPS
-        / STK_SCREEN_TRANSIT_SECONDS_MIN;
+        / (float)STK_SCREEN_TRANSIT_SECONDS_MIN;
 
     STK_joystick = open("/dev/input/js0", O_RDONLY | O_NONBLOCK);
 
@@ -204,7 +204,8 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     STK_ticks_previous = ticks_current;
 
     float x_velocity = (float)STK_axes[STK_JS_AXIS].x / (float)STK_JS_RANGE_MAX;
-    x_velocity = powf(x_velocity, 2); // Give stick response a square curve
+    // x_velocity = powf(x_velocity, 2); // Give stick response a square curve
+    x_velocity = x_velocity * x_velocity;
     STK_mouse_x -= x_velocity * STK_velocity_scale * tick_scale;
     if(STK_mouse_x >= (float)STK_window_width){
         STK_mouse_x = (float)STK_window_width - 1;
@@ -213,7 +214,8 @@ boolean STK_PollEvent(STK_Event *stk_event) {
     }
 
     float y_velocity = (float)STK_axes[STK_JS_AXIS].y / (float)STK_JS_RANGE_MAX;
-    y_velocity = powf(y_velocity, 2); // Give stick response a square curve
+    // y_velocity = powf(y_velocity, 2); // Give stick response a square curve
+    y_velocity = y_velocity * y_velocity;
     STK_mouse_y -= y_velocity * STK_velocity_scale * tick_scale;
     if(STK_mouse_y >= (float)STK_window_height){
         STK_mouse_y = (float)STK_window_height - 1;
